@@ -40,19 +40,27 @@ makeCacheMatrix <- function(newmatrix = matrix()) {
 }
 
 
-## creates
+## essentially operates the way the singleton pattern works in 
+## object oriented programming. We test if there is currently a 
+## solution available and if there is we return it. Otherwise we
+## calculate the solution and return that. It guarantees that we 
+## only do the calculation once.
 
 cacheSolve <- function(x, ...) {
-        ## Return a matrix that is the inverse of 'x'
+  ## check for a previous solution
   result<-x$getsolve()
   if(!is.null(result))
   {
+    ## if there is a previous solution, return it and exit this function
     message("getting cached data")
     return (result)
   }
+  ## otherwise retrieve the matrix and perform solve on it
   data<-x$get()
   result<-solve(data, ...)
+  ## save the solution for later use ... but this is not working correctly
   x$setsolve(result)
+  ## return the result
   result
 }
 
